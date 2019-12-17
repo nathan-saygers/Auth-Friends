@@ -14,6 +14,17 @@ const FriendsList = () => {
       .catch(err => console.log(err));
   }, [])
 
+  const deleteFriend = (id) => {
+    axiosWithAuth()
+      .delete(`/friends/${id}`)
+      .then(response => {
+      console.log('delete call', response);
+      let reRenderArr = friendData.filter(friend => friend.id !== Number(id));
+      setFriendData(reRenderArr);
+      })
+      .catch(err => console.log(err))
+  }
+
   console.log('friend data', friendData);
 
   return(
@@ -23,6 +34,8 @@ const FriendsList = () => {
           name={friend.name}
           age={friend.age}
           email={friend.email}
+          id={friend.id}
+          deleteFriend={deleteFriend}
         />
       ))}
     </div>
