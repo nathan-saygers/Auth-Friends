@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
 
 const Login = () => {
-  const [ credentials, setCredentials] = useState({ email: "", password: "" })
+  const [ credentials, setCredentials] = useState({ username: "", password: "" })
   const [ isFetching, setIsFetching] = useState(false);
 
   const handleChanges = event => {
@@ -18,7 +18,8 @@ const Login = () => {
     axiosWithAuth()
       .post('/login', credentials)
       .then(response => {
-        console.log('response from API in login component', response)
+        localStorage.setItem('token', response.data.payload);
+        
       })
       .catch(err=> console.log(err));
   }
@@ -26,10 +27,10 @@ const Login = () => {
   return (
     <form onSubmit={login}>
       <input 
-        type="email" 
-        name="email" 
-        placeholder="email"
-        value={credentials.email} 
+        type="username" 
+        name="username" 
+        placeholder="username"
+        value={credentials.username} 
         onChange={handleChanges} 
         />
       <input 

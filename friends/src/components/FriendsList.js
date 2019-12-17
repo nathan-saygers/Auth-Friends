@@ -4,7 +4,7 @@ const FriendsList = () => {
 
   return(
     <div>
-
+      Can you see me?
     </div>
   )
 }
